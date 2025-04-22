@@ -11,4 +11,4 @@ class Voter(Base):
     email = Column(String, nullable=False, unique=True)
     has_voted = Column(Boolean, default=False)
 
-    vote = relationship("Vote", back_populates="voter", uselist=False)
+    # vote = relationship("Vote", back_populates="voter", uselist=False)

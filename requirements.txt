@@ -3,3 +3,4 @@ fastapi
 sqlalchemy
 pydantic
 pydantic[email]
+psycopg2-binary

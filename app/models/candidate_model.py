@@ -11,4 +11,4 @@ class Candidate(Base):
     party = Column(String, nullable=True)
     votes = Column(Integer, default=0)
 
-    received_votes = relationship("Vote", back_populates="candidate")
+    # received_votes = relationship("Vote", back_populates="candidate")
