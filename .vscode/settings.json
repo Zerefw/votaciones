@@ -1,0 +1,7 @@
+{
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "python.formatting.autopep8Args": ["--indent-size=4"],
+  "python.formatting.blackArgs": ["--line-length", "88"],
+  "python.formatting.yapfArgs": ["--style", "{based_on_style: pep8, indent_width: 4}"]
+}

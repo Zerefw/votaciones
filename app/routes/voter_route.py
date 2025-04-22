@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.voter_model import Voter
+from app.models.candidate_model import Candidate
 from app.schemas.voter_schema import VoterCreate, VoterOut
 
 router = APIRouter(prefix="/voters", tags=["Votantes"])
@@ -11,6 +12,10 @@ def create_voter(voter: VoterCreate, db: Session = Depends(get_db)):
     db_voter = db.query(Voter).filter(Voter.email == voter.email).first()
     if db_voter:
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
+    
+    db_candidate = db.query(Candidate).filter(Candidate.name == voter.name).first()
+    if db_candidate:
+        raise HTTPException(status_code=400, detail="Este votante ya está registrado como candidato")
     
     new_voter = Voter(**voter.dict())
     db.add(new_voter)

@@ -16,4 +16,4 @@ app.include_router(vote_router)
 # Ruta base para indicar de que la api funciona o dar la bienvenida
 @app.get("/")
 def read_root():
-  return {"message": "API de votaciones"}
+    return {"message": "API de votaciones"}

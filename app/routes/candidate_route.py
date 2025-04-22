@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.candidate_model import Candidate
+from app.models.voter_model import Voter
 from app.schemas.candidate_schema import CandidateCreate, CandidateOut
 
 # Definimos la ruta que se utilizará para los candidatos 
@@ -10,6 +11,10 @@ router = APIRouter(prefix="/candidates", tags=["Candidatos"])
 # Crear un candidato
 @router.post("/", response_model=CandidateOut, status_code=status.HTTP_201_CREATED)
 def create_candidate(candidate: CandidateCreate, db: Session = Depends(get_db)):
+    db_voter = db.query(Voter).filter(Voter.name == candidate.name).first()
+    if db_voter:
+        raise HTTPException(status_code=400, detail="El candidato ya esta registrado como votante")
+        
     new_candidate = Candidate(**candidate.dict())
     db.add(new_candidate)
     db.commit()
