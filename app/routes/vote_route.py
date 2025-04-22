@@ -9,6 +9,7 @@ from app.schemas.vote_schema import VoteCreate, VoteOut
 
 router = APIRouter(prefix="/votes", tags=["Votos"])
 
+# Crear un votante
 @router.post("/", response_model=VoteOut)
 def create_vote(vote: VoteCreate, db: Session = Depends(get_db)):
     # Verificar si el votante existe
@@ -32,6 +33,9 @@ def create_vote(vote: VoteCreate, db: Session = Depends(get_db)):
 
     # Incrementar los votos del candidato
     candidate.votes += 1
+
+    # Marcamos al votante como que ya votó
+    voter.has_voted = True
 
     db.commit()
     db.refresh(new_vote)
