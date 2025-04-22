@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
-from sqlalchemy.orm import relationship, declarative_base
-
-Base = declarative_base()
+from sqlalchemy.orm import relationship
+from app.database import Base
 
 class Candidate(Base):
     __tablename__ = "candidate"
@@ -11,4 +10,4 @@ class Candidate(Base):
     party = Column(String, nullable=True)
     votes = Column(Integer, default=0)
 
-    # received_votes = relationship("Vote", back_populates="candidate")
+    received_votes = relationship("Vote", back_populates="candidate")

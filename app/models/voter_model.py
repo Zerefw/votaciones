@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
-from sqlalchemy.orm import relationship, declarative_base
-
-Base = declarative_base()
+from sqlalchemy.orm import relationship
+from app.database import Base
 
 class Voter(Base):
     __tablename__ = "voter"
@@ -11,4 +10,4 @@ class Voter(Base):
     email = Column(String, nullable=False, unique=True)
     has_voted = Column(Boolean, default=False)
 
-    # vote = relationship("Vote", back_populates="voter", uselist=False)
+    vote = relationship("Vote", back_populates="voter", uselist=False)
